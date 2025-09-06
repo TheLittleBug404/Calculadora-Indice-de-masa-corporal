@@ -1,17 +1,21 @@
 import 'package:calculadora_imc/core/app_colors.dart';
-import 'package:calculadora_imc/core/text_styles.dart';
+import 'package:calculadora_imc/get_x/gestor_estado.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:interactive_slider/interactive_slider.dart';
 
 class SliderCompoment extends StatefulWidget {
-  const SliderCompoment({super.key});
+  const SliderCompoment({
+    super.key,
+  });
 
   @override
   State<SliderCompoment> createState() => _SliderCompomentState();
 }
 
 class _SliderCompomentState extends State<SliderCompoment> {
-  double altura = 170;
+  final Variables variables = Get.put(Variables());
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +38,7 @@ class _SliderCompomentState extends State<SliderCompoment> {
               ),
             ),
             Text(
-              "${altura.toStringAsFixed(0)} cm",
+              "${variables.getAltura().toStringAsFixed(0)} cm",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -55,7 +59,7 @@ class _SliderCompomentState extends State<SliderCompoment> {
               iconColor: Colors.white,
               foregroundColor: AppColors.primary,
               onChanged: (newAltura) => setState(() {
-                altura = newAltura;
+                variables.setAltura(newAltura.toInt());
               }),
             ),
           ],

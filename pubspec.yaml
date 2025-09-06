@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  get: ^4.7.2
   interactive_slider: ^0.5.1
 
 dev_dependencies:

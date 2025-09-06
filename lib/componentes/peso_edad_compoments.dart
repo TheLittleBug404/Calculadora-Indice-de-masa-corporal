@@ -1,16 +1,25 @@
 import 'package:calculadora_imc/core/app_colors.dart';
+import 'package:calculadora_imc/get_x/gestor_estado.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PesoEdadCompoment extends StatefulWidget {
-  const PesoEdadCompoment({super.key});
+  final int peso;
+  final int edad;
+  const PesoEdadCompoment({
+    super.key,
+    required this.peso,
+    required this.edad,
+  });
 
   @override
   State<PesoEdadCompoment> createState() => _PesoEdadCompomentState();
 }
 
 class _PesoEdadCompomentState extends State<PesoEdadCompoment> {
-  int peso = 90;
-  int edad = 30;
+  //int peso = 90;
+  //int edad = 30;
+  final Variables variables = Get.put(Variables());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,8 +27,8 @@ class _PesoEdadCompomentState extends State<PesoEdadCompoment> {
       child: Row(
         spacing: 10,
         children: [
-          ContainerData(title: "PESO", dato: peso),
-          ContainerData(title: "EDAD", dato: edad),
+          ContainerData(title: "PESO", dato: variables.getPeso(),tipo: 1,),
+          ContainerData(title: "EDAD", dato: variables.getEdad(),tipo: 2),
         ],
       ),
     );
@@ -27,15 +36,28 @@ class _PesoEdadCompomentState extends State<PesoEdadCompoment> {
 }
 
 class ContainerData extends StatefulWidget {
-  int dato;
+  final int dato;
   final String title;
-  ContainerData({super.key, required this.title, required this.dato});
+  final int tipo;
+  const ContainerData({
+    super.key, 
+    required this.title, 
+    required this.dato,
+    required this.tipo,
+  });
 
   @override
   State<ContainerData> createState() => _ContainerDataState();
 }
 
 class _ContainerDataState extends State<ContainerData> {
+  late int _dato = widget.dato;
+  final Variables variables = Get.put(Variables());
+  @override
+  void initState(){
+    super.initState();
+    _dato = widget.dato;
+  }
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -53,7 +75,7 @@ class _ContainerDataState extends State<ContainerData> {
               style: TextStyle(color: Colors.grey, fontSize: 10),
             ),
             Text(
-              widget.dato.toString(),
+              _dato.toString(),
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             Row(
@@ -63,7 +85,12 @@ class _ContainerDataState extends State<ContainerData> {
                 ElevatedButton(
                   onPressed: () => setState(() {
                     if (widget.dato <= 200) {
-                      widget.dato += 1;
+                      _dato += 1;
+                      if(widget.tipo == 1){
+                        variables.setPeso(_dato);
+                      }else{
+                        variables.setEdad(_dato);
+                      }
                     }
                   }),
                   style: ButtonStyle(
@@ -75,7 +102,12 @@ class _ContainerDataState extends State<ContainerData> {
                 ElevatedButton(
                   onPressed: () => setState(() {
                     if (widget.dato > 0) {
-                      widget.dato -= 1;
+                      _dato -= 1;
+                      if(widget.tipo == 1){
+                        variables.setPeso(_dato);
+                      }else{
+                        variables.setEdad(_dato);
+                      }
                     }
                   }),
                   style: ButtonStyle(

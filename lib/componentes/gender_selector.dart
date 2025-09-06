@@ -1,8 +1,8 @@
-import 'dart:developer';
-
 import 'package:calculadora_imc/core/app_colors.dart';
 import 'package:calculadora_imc/core/text_styles.dart';
+import 'package:calculadora_imc/get_x/gestor_estado.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GenderSelector extends StatefulWidget {
   const GenderSelector({super.key});
@@ -17,6 +17,7 @@ class _GenderSelectorState extends State<GenderSelector> {
   bool botonSeleccionado2 = false;
   Color colorBoton1 = AppColors.backgroundComponentesSeleccionados;
   Color colorBoton2 = AppColors.backgroundComponentes;
+  final Variables variables = Get.put(Variables());
   @override
   Widget build(BuildContext context) {
     final double anchoPantalla = MediaQuery.of(context).size.width;
@@ -33,7 +34,7 @@ class _GenderSelectorState extends State<GenderSelector> {
                 setState(() {
                   botonSeleccionado1 = !botonSeleccionado1;
                   botonSeleccionado2 = !botonSeleccionado2;
-                  log("Presionaste el boton 1 $botonSeleccionado1");
+                  variables.setSexo("Hombre");
                   if (botonSeleccionado1) {
                     colorBoton1 = AppColors.backgroundComponentesSeleccionados;
                     colorBoton2 = AppColors.backgroundComponentes;
@@ -72,7 +73,7 @@ class _GenderSelectorState extends State<GenderSelector> {
                 setState(() {
                   botonSeleccionado2 = !botonSeleccionado2;
                   botonSeleccionado1 = !botonSeleccionado1;
-                  log("Presionaste el boton 2 $botonSeleccionado2");
+                  variables.setSexo("Mujer");
                   if (botonSeleccionado2) {
                     colorBoton2 = AppColors.backgroundComponentesSeleccionados;
                     colorBoton1 = AppColors.backgroundComponentes;

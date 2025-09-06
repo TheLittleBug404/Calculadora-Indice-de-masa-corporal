@@ -3,7 +3,9 @@ import 'package:calculadora_imc/componentes/gender_selector.dart';
 import 'package:calculadora_imc/componentes/muestra_resultado_compoment.dart';
 import 'package:calculadora_imc/componentes/peso_edad_compoments.dart';
 import 'package:calculadora_imc/componentes/slider_compoment.dart';
+import 'package:calculadora_imc/get_x/gestor_estado.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ImcHomeScreen extends StatefulWidget {
   const ImcHomeScreen({super.key});
@@ -13,6 +15,7 @@ class ImcHomeScreen extends StatefulWidget {
 }
 
 class _ImcHomeScreenState extends State<ImcHomeScreen> {
+  final Variables variables = Get.put(Variables());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,11 +32,17 @@ class _ImcHomeScreenState extends State<ImcHomeScreen> {
           ),
           Expanded(
             flex: 1,
-            child: PesoEdadCompoment()
+            child: PesoEdadCompoment(
+              peso: variables.peso.toInt(), 
+              edad: variables.edad.toInt(),
+            )
           ),
           Expanded(
             flex: 1,
-            child: MuestraResultadoCompoment()
+            child: Obx(()=>MuestraResultadoCompoment(
+              title: "Sexo : ${variables.getSexo()}",
+              //masaCorporal: variables.peso.toDouble(),
+            ))
           ),
           Expanded(
             flex: 1,

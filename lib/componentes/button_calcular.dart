@@ -2,10 +2,14 @@
 import 'dart:developer';
 import 'package:calculadora_imc/core/app_colors.dart';
 import 'package:calculadora_imc/core/text_styles.dart';
+import 'package:calculadora_imc/get_x/gestor_estado.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ButtonCalcular extends StatelessWidget {
-  const ButtonCalcular({super.key});
+  ButtonCalcular({super.key});
+
+  final Variables variables = Get.put(Variables());
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,13 @@ class ButtonCalcular extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            log("Presionaste el boton calcular ");
+            // log("Presionaste el boton calcular ");
+            // log("Peso :::> ${variables.getPeso()}");
+            // log("Edad :::> ${variables.getEdad()}");
+            // log("Altura :::> ${variables.getAltura()}");
+            // log("Sexo :::> ${variables.getSexo()}");
+            variables.setImc(variables.indiceMasaCorporal());
+            // log("Imc:::> ${variables.getImc().toStringAsFixed(2)}");
           },
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(AppColors.primary),
@@ -27,12 +37,6 @@ class ButtonCalcular extends StatelessWidget {
           ),
         ),
       ),
-      // child: Container(
-      //   decoration: BoxDecoration(
-      //     color: AppColors.primary,
-      //     borderRadius: BorderRadius.circular(20)
-      //   ),
-      // ),
     );
   }
 }

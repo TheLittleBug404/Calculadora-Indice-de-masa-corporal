@@ -1,5 +1,3 @@
-
-import 'dart:developer';
 import 'package:calculadora_imc/core/app_colors.dart';
 import 'package:calculadora_imc/core/text_styles.dart';
 import 'package:calculadora_imc/get_x/gestor_estado.dart';
